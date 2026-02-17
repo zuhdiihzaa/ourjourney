@@ -1,210 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Journey</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Journey — 23 December 2023</title>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Poppins",sans-serif;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-body{
-  background: radial-gradient(circle at top,#1a0033,#000 70%);
-  color:white;
-  overflow-x:hidden;
-}
+    body {
+      background: radial-gradient(circle at top, #1a0b2e, #05010a 70%);
+      color: white;
+      overflow-x: hidden;
+    }
 
-/* ===== HEADER ===== */
-header{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-}
+    /* STAR BACKGROUND */
+    canvas#stars {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+    }
 
-h1{
-  font-size:clamp(2.5rem,6vw,4rem);
-  background:linear-gradient(45deg,#ff4d6d,#ffd6e0);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
 
-.days{
-  margin-top:10px;
-  opacity:.8;
-}
+    h1 {
+      font-size: 2.2rem;
+      line-height: 1.4;
+      animation: fadeIn 2s ease forwards;
+    }
 
-/* ===== 3D LOVE ===== */
-.love3d{
-  width:120px;
-  height:120px;
-  margin-top:30px;
-  position:relative;
-  transform-style:preserve-3d;
-  animation:spin 8s linear infinite;
-  filter:drop-shadow(0 0 20px #ff4d6d);
-}
-.love3d::before,.love3d::after{
-  content:"";
-  position:absolute;
-  width:120px;
-  height:120px;
-  background:radial-gradient(circle,#ff4d6d,#ff1e4d);
-  border-radius:50%;
-}
-.love3d::before{left:-60px;}
-.love3d::after{top:-60px;}
+    .days {
+      margin-top: 12px;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
 
-@keyframes spin{
-  from{transform:rotateY(0) rotateX(10deg);}
-  to{transform:rotateY(360deg) rotateX(10deg);}
-}
+    /* 3D HEART */
+    .heart-scene {
+      margin-top: 40px;
+      perspective: 800px;
+    }
 
-/* ===== GALLERY ===== */
-.gallery{
-  padding:60px 20px 80px;
-  max-width:1100px;
-  margin:auto;
-}
+    .heart {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spin 8s linear infinite;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:12px;
-}
+    .heart span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #ff4d88, #ff0055);
+      clip-path: path("M60 110 L10 60 A25 25 0 1 1 60 30 A25 25 0 1 1 110 60 Z");
+      transform: translateZ(var(--z));
+      filter: drop-shadow(0 0 12px #ff4d88);
+    }
 
-.photo{
-  overflow:hidden;
-  border-radius:18px;
-  cursor:pointer;
-  position:relative;
-}
-.photo img,.photo video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:.5s;
-}
-.photo:hover img{transform:scale(1.05);}
+    @keyframes spin {
+      from { transform: rotateY(0deg) rotateX(10deg); }
+      to { transform: rotateY(360deg) rotateX(10deg); }
+    }
 
-/* ===== FLOATING HEART ===== */
-.heart{
-  position:fixed;
-  width:14px;
-  height:14px;
-  background:#ff4d6d;
-  transform:rotate(45deg);
-  animation:spread 2.5s linear forwards;
-  pointer-events:none;
-  z-index:9999;
-}
-.heart::before,.heart::after{
-  content:"";
-  position:absolute;
-  width:14px;
-  height:14px;
-  background:#ff4d6d;
-  border-radius:50%;
-}
-.heart::before{top:-7px;}
-.heart::after{left:-7px;}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-@keyframes spread{
-  0%{opacity:1; transform:translate(0,0) scale(1) rotate(45deg);}
-  100%{opacity:0; transform:translate(var(--x),var(--y)) scale(2) rotate(45deg);}
-}
+    /* GALLERY */
+    .gallery {
+      padding: 40px 16px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      max-width: 900px;
+      margin: auto;
+    }
 
-/* ===== FOOTER ===== */
-footer{
-  text-align:center;
-  padding:60px 20px 80px;
-  opacity:.8;
-  line-height:1.6;
-}
-</style>
+    .photo {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      cursor: pointer;
+      transform: scale(0.95);
+      transition: 0.4s ease;
+    }
+
+    .photo:hover {
+      transform: scale(1);
+    }
+
+    .photo img,
+    .photo video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* HEART PARTICLES */
+    .flying-heart {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      background: #ff4d88;
+      transform: rotate(45deg);
+      animation: fly 2s linear forwards;
+      z-index: 999;
+    }
+
+    .flying-heart::before,
+    .flying-heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #ff4d88;
+      border-radius: 50%;
+    }
+
+    .flying-heart::before { top: -7px; left: 0; }
+    .flying-heart::after { left: -7px; top: 0; }
+
+    @keyframes fly {
+      to {
+        transform: translate(var(--x), var(--y)) scale(0.2) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+    }
+  </style>
 </head>
-
 <body>
 
+<canvas id="stars"></canvas>
+
 <!-- MUSIC -->
-<iframe id="music"
-src="https://www.youtube.com/embed/XsagL-UZW1U?autoplay=1&loop=1&playlist=XsagL-UZW1U"
-allow="autoplay"
-style="display:none"></iframe>
+<audio id="music" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
 
 <header>
-<h1>Our Journey</h1>
-<div class="days" id="days"></div>
-<div class="love3d"></div>
+  <h1>
+    Since 23 December 2023,<br />
+    every day with you becomes my favorite memory.
+  </h1>
 
-<p style="margin-top:40px;max-width:500px;opacity:.85;">
-Not a perfect story.<br>
-Just two hearts… still choosing each other.
-</p>
+  <div class="days" id="dayCounter"></div>
+
+  <div class="heart-scene">
+    <div class="heart">
+      <span style="--z:-25px"></span>
+      <span style="--z:-20px"></span>
+      <span style="--z:-15px"></span>
+      <span style="--z:-10px"></span>
+      <span style="--z:-5px"></span>
+      <span style="--z:0px"></span>
+      <span style="--z:5px"></span>
+      <span style="--z:10px"></span>
+      <span style="--z:15px"></span>
+      <span style="--z:20px"></span>
+      <span style="--z:25px"></span>
+    </div>
+  </div>
 </header>
 
-<section class="gallery">
-<div class="grid">
-  <div class="photo"><img src="photo1.jpg"></div>
-  <div class="photo"><img src="photo2.jpg"></div>
-  <div class="photo"><video src="video1.mp4"></video></div>
-  <div class="photo"><img src="photo3.jpg"></div>
-  <div class="photo"><img src="photo4.jpg"></div>
-  <div class="photo"><video src="video2.mp4"></video></div>
-</div>
+<section class="gallery" id="gallery">
+  <!-- Add as many photos/videos as you want here -->
+  <div class="photo"><img src="1.jpg" /></div>
+  <div class="photo"><img src="2.jpg" /></div>
+  <div class="photo"><img src="3.jpg" /></div>
+  <div class="photo"><img src="4.jpg" /></div>
+  <div class="photo"><img src="5.jpg" /></div>
+  <div class="photo"><img src="6.jpg" /></div>
+  <div class="photo"><img src="7.jpg" /></div>
+  <div class="photo"><img src="8.jpg" /></div>
+  <div class="photo"><img src="9.jpg" /></div>
+  <div class="photo"><img src="10.jpg" /></div>
+  <div class="photo"><video src="video1.mp4" muted autoplay loop></video></div>
 </section>
 
-<footer>
-Since December 23, 2023.<br>
-And I would still choose you… every single day.
-</footer>
-
 <script>
-/* ===== DAYS COUNTER ===== */
-const start=new Date("2023-12-23");
-const now=new Date();
-document.getElementById("days").innerText=
-Math.floor((now-start)/(1000*60*60*24))+" days with you.";
+  /* DAY COUNTER */
+  const start = new Date("2023-12-23");
+  const now = new Date();
+  const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+  document.getElementById("dayCounter").textContent =
+    diff + " days of loving you.";
 
-/* ===== HEART FROM CLICKED PHOTO ===== */
-document.querySelectorAll(".photo").forEach(photo=>{
-  photo.addEventListener("click",e=>{
-    const rect=photo.getBoundingClientRect();
-    const startX=rect.left+rect.width/2;
-    const startY=rect.top+rect.height/2;
+  /* STARFIELD */
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
 
-    for(let i=0;i<24;i++){
-      const heart=document.createElement("div");
-      heart.className="heart";
+  function resize() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+  }
+  resize();
+  addEventListener("resize", resize);
 
-      heart.style.left=startX+"px";
-      heart.style.top=startY+"px";
+  const stars = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5,
+    s: Math.random() * 0.3 + 0.05
+  }));
 
-      const angle=Math.random()*Math.PI*2;
-      const distance=200+Math.random()*200;
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      heart.style.setProperty("--x",Math.cos(angle)*distance+"px");
-      heart.style.setProperty("--y",Math.sin(angle)*distance+"px");
+    ctx.fillStyle = "white";
+    stars.forEach(star => {
+      star.y += star.s;
+      if (star.y > canvas.height) star.y = 0;
 
-      document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(),2500);
-    }
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  /* HEART EXPLOSION FROM PHOTO */
+  document.querySelectorAll(".photo").forEach(photo => {
+    photo.addEventListener("click", e => {
+      const rect = photo.getBoundingClientRect();
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+
+      for (let i = 0; i < 20; i++) {
+        const h = document.createElement("div");
+        h.className = "flying-heart";
+        h.style.left = startX + "px";
+        h.style.top = startY + "px";
+
+        h.style.setProperty("--x", (Math.random() - 0.5) * innerWidth + "px");
+        h.style.setProperty("--y", (Math.random() - 0.5) * innerHeight + "px");
+
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 2000);
+      }
+    });
   });
-});
-
-/* ===== MOBILE MUSIC UNLOCK ===== */
-document.body.addEventListener("click",()=>{
-  const m=document.getElementById("music");
-  m.src=m.src; // trigger play
-},{once:true});
 </script>
 
 </body>
