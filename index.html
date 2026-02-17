@@ -6,189 +6,166 @@
   <title>Our Journey — 23 December 2023</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+
+    body{
+      min-height:100vh;
+      color:white;
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 20% 30%, #ff4da633 0%, transparent 40%),
+        radial-gradient(circle at 80% 40%, #7a5cff33 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, #ff9acb22 0%, transparent 40%),
+        linear-gradient(160deg, #14051f 0%, #05010a 60%, #020006 100%);
+      animation: bgMove 18s ease-in-out infinite alternate;
     }
 
-    body {
-      background: radial-gradient(circle at top, #1a0b2e, #05010a 70%);
-      color: white;
-      overflow-x: hidden;
+    @keyframes bgMove{
+      0%{background-position:0% 0%,100% 0%,50% 100%,0 0}
+      100%{background-position:10% 10%,90% 20%,60% 90%,0 0}
     }
 
-    /* STAR BACKGROUND */
-    canvas#stars {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
+    .stars{
+      position:fixed;inset:0;pointer-events:none;z-index:-1;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, #ffffffaa, transparent),
+        radial-gradient(1.5px 1.5px at 70% 60%, #ffffff99, transparent),
+        radial-gradient(1.2px 1.2px at 40% 80%, #ffffff88, transparent),
+        radial-gradient(1.8px 1.8px at 85% 20%, #ffffffaa, transparent);
+      animation: starDrift 40s linear infinite;
     }
 
-    header {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
+    @keyframes starDrift{from{transform:translateY(0)}to{transform:translateY(-200px)}}
+
+    header, .ending{
+      min-height:100vh;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;padding:20px;
     }
 
-    h1 {
-      font-size: 2.2rem;
-      line-height: 1.4;
-      animation: fadeIn 2s ease forwards;
+    h1{
+      font-size:2.2rem;line-height:1.4;
+      background:linear-gradient(45deg,#fff,#ff9acb);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:fadeIn 2s ease forwards;
     }
 
-    .days {
-      margin-top: 12px;
-      font-size: 1rem;
-      opacity: 0.85;
+    .days{margin-top:12px;font-size:1rem;opacity:.85}
+
+    .heart-scene{margin-top:50px;perspective:1000px}
+
+    .heart{
+      position:relative;width:170px;height:170px;
+      transform-style:preserve-3d;
+      animation:spin 12s linear infinite;
+      filter:drop-shadow(0 0 30px #ff4da6) drop-shadow(0 0 80px #ff4da688);
     }
 
-    /* 3D HEART */
-    .heart-scene {
-      margin-top: 40px;
-      perspective: 800px;
+    .layer{
+      position:absolute;inset:0;
+      background:radial-gradient(circle at 35% 35%,#ffb3d9,#ff2d7a);
+      clip-path:path("M85 155 L10 85 A40 40 0 1 1 85 40 A40 40 0 1 1 160 85 Z");
+      transform:translateZ(var(--z));
+      opacity:calc(1 - (abs(var(--z)) / 140));
     }
 
-    .heart {
-      width: 120px;
-      height: 120px;
-      position: relative;
-      transform-style: preserve-3d;
-      animation: spin 8s linear infinite;
+    @keyframes spin{from{transform:rotateY(0) rotateX(12deg)}to{transform:rotateY(360deg) rotateX(12deg)}}
+
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    .gallery{
+      padding:50px 16px 90px;
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:12px;max-width:950px;margin:auto
     }
 
-    .heart span {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, #ff4d88, #ff0055);
-      clip-path: path("M60 110 L10 60 A25 25 0 1 1 60 30 A25 25 0 1 1 110 60 Z");
-      transform: translateZ(var(--z));
-      filter: drop-shadow(0 0 12px #ff4d88);
+    .photo{
+      position:relative;overflow:hidden;border-radius:20px;cursor:pointer;
+      transform:scale(.95);transition:.4s ease;box-shadow:0 10px 25px #0006
     }
 
-    @keyframes spin {
-      from { transform: rotateY(0deg) rotateX(10deg); }
-      to { transform: rotateY(360deg) rotateX(10deg); }
+    .photo:hover{transform:scale(1.05)}
+
+    .photo img,.photo video{width:100%;height:100%;object-fit:cover;display:block}
+
+    .flying-heart{
+      position:fixed;width:16px;height:16px;background:#ff4da6;transform:rotate(45deg);
+      animation:fly 2.4s cubic-bezier(.2,.7,.3,1) forwards;z-index:999;
+      box-shadow:0 0 14px #ff4da6
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .flying-heart::before,.flying-heart::after{
+      content:"";position:absolute;width:16px;height:16px;background:#ff4da6;border-radius:50%
     }
 
-    /* GALLERY */
-    .gallery {
-      padding: 40px 16px 80px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      max-width: 900px;
-      margin: auto;
+    .flying-heart::before{top:-8px;left:0}
+    .flying-heart::after{left:-8px;top:0}
+
+    @keyframes fly{to{transform:translate(var(--x),var(--y)) scale(.15) rotate(45deg);opacity:0}}
+
+    /* ENDING TEXT */
+    .ending-text{
+      font-size:1.8rem;
+      max-width:600px;
+      line-height:1.6;
+      opacity:0;
+      animation:endingFade 4s ease forwards;
+      animation-delay:1.5s;
     }
 
-    .photo {
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-      cursor: pointer;
-      transform: scale(0.95);
-      transition: 0.4s ease;
+    @keyframes endingFade{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
     }
 
-    .photo:hover {
-      transform: scale(1);
+    .final-line{
+      margin-top:20px;
+      font-size:1.2rem;
+      opacity:0;
+      animation:endingFade 4s ease forwards;
+      animation-delay:4s;
     }
 
-    .photo img,
-    .photo video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    audio{display:none}
 
-    /* HEART PARTICLES */
-    .flying-heart {
-      position: fixed;
-      width: 14px;
-      height: 14px;
-      background: #ff4d88;
-      transform: rotate(45deg);
-      animation: fly 2s linear forwards;
-      z-index: 999;
-    }
-
-    .flying-heart::before,
-    .flying-heart::after {
-      content: "";
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      background: #ff4d88;
-      border-radius: 50%;
-    }
-
-    .flying-heart::before { top: -7px; left: 0; }
-    .flying-heart::after { left: -7px; top: 0; }
-
-    @keyframes fly {
-      to {
-        transform: translate(var(--x), var(--y)) scale(0.2) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    audio {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.7rem; }
+    @media(max-width:600px){
+      h1{font-size:1.7rem}
+      .ending-text{font-size:1.4rem}
     }
   </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
+<div class="stars"></div>
 
-<!-- MUSIC -->
-<audio id="music" autoplay loop>
+<audio autoplay loop>
   <source src="music.mp3" type="audio/mpeg" />
 </audio>
 
 <header>
   <h1>
     Since 23 December 2023,<br />
-    every day with you becomes my favorite memory.
+    every moment with you feels like home.
   </h1>
 
   <div class="days" id="dayCounter"></div>
 
   <div class="heart-scene">
     <div class="heart">
-      <span style="--z:-25px"></span>
-      <span style="--z:-20px"></span>
-      <span style="--z:-15px"></span>
-      <span style="--z:-10px"></span>
-      <span style="--z:-5px"></span>
-      <span style="--z:0px"></span>
-      <span style="--z:5px"></span>
-      <span style="--z:10px"></span>
-      <span style="--z:15px"></span>
-      <span style="--z:20px"></span>
-      <span style="--z:25px"></span>
+      <div class="layer" style="--z:-70px"></div>
+      <div class="layer" style="--z:-50px"></div>
+      <div class="layer" style="--z:-30px"></div>
+      <div class="layer" style="--z:-15px"></div>
+      <div class="layer" style="--z:0px"></div>
+      <div class="layer" style="--z:15px"></div>
+      <div class="layer" style="--z:30px"></div>
+      <div class="layer" style="--z:50px"></div>
+      <div class="layer" style="--z:70px"></div>
     </div>
   </div>
 </header>
 
-<section class="gallery" id="gallery">
-  <!-- Add as many photos/videos as you want here -->
+<section class="gallery">
   <div class="photo"><img src="1.jpg" /></div>
   <div class="photo"><img src="2.jpg" /></div>
   <div class="photo"><img src="3.jpg" /></div>
@@ -202,67 +179,39 @@
   <div class="photo"><video src="video1.mp4" muted autoplay loop></video></div>
 </section>
 
+<section class="ending">
+  <div class="ending-text">
+    No matter how many days pass…<br />
+    I will still choose you,<br />
+    again and again.
+  </div>
+
+  <div class="final-line">
+    Always you. ❤️
+  </div>
+</section>
+
 <script>
-  /* DAY COUNTER */
-  const start = new Date("2023-12-23");
-  const now = new Date();
-  const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-  document.getElementById("dayCounter").textContent =
-    diff + " days of loving you.";
+  const start=new Date("2023-12-23");
+  const now=new Date();
+  const diff=Math.floor((now-start)/(1000*60*60*24));
+  document.getElementById("dayCounter").textContent=diff+" days of loving you.";
 
-  /* STARFIELD */
-  const canvas = document.getElementById("stars");
-  const ctx = canvas.getContext("2d");
+  document.querySelectorAll(".photo").forEach(photo=>{
+    photo.addEventListener("click",()=>{
+      const rect=photo.getBoundingClientRect();
+      const startX=rect.left+rect.width/2;
+      const startY=rect.top+rect.height/2;
 
-  function resize() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-  }
-  resize();
-  addEventListener("resize", resize);
-
-  const stars = Array.from({ length: 120 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.5,
-    s: Math.random() * 0.3 + 0.05
-  }));
-
-  function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "white";
-    stars.forEach(star => {
-      star.y += star.s;
-      if (star.y > canvas.height) star.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    requestAnimationFrame(drawStars);
-  }
-  drawStars();
-
-  /* HEART EXPLOSION FROM PHOTO */
-  document.querySelectorAll(".photo").forEach(photo => {
-    photo.addEventListener("click", e => {
-      const rect = photo.getBoundingClientRect();
-      const startX = rect.left + rect.width / 2;
-      const startY = rect.top + rect.height / 2;
-
-      for (let i = 0; i < 20; i++) {
-        const h = document.createElement("div");
-        h.className = "flying-heart";
-        h.style.left = startX + "px";
-        h.style.top = startY + "px";
-
-        h.style.setProperty("--x", (Math.random() - 0.5) * innerWidth + "px");
-        h.style.setProperty("--y", (Math.random() - 0.5) * innerHeight + "px");
-
+      for(let i=0;i<26;i++){
+        const h=document.createElement("div");
+        h.className="flying-heart";
+        h.style.left=startX+"px";
+        h.style.top=startY+"px";
+        h.style.setProperty("--x",(Math.random()-0.5)*innerWidth+"px");
+        h.style.setProperty("--y",(Math.random()-0.5)*innerHeight+"px");
         document.body.appendChild(h);
-        setTimeout(() => h.remove(), 2000);
+        setTimeout(()=>h.remove(),2400);
       }
     });
   });
